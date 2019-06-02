@@ -1,0 +1,20 @@
+#usr/bin/env/bash
+SCRIPT='dateFinder'
+SEARCH=$1
+DATE='Modify: '$2
+
+for folder in $( ls ); do
+	if [ ${folder} = ${SCRIPT} ]; then
+		continue
+	fi
+	
+	cd ${folder}
+
+	for file in $( ls | grep "${SEARCH}"); do
+		if stat ${file} | grep "${DATE}"; then
+			echo $(pwd)/${file}
+		fi
+	
+	done
+	cd ..
+done
